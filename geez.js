@@ -1,6 +1,6 @@
 // Dictionary for Geez to JavaScript translations
 const translationDictionary = {
-    'ፕሪንት': 'console.log', // Translate print to console.log
+    'ፕሪንት': 'document.write', // Translate print to console.log
     'ፈጽሞ': 'let',           // Translate variable declaration to let
     // Add more translations here
 };
