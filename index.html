@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+#output{
+    width: 100%;
+}
+
+
+#line-numbers {
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    border-right: 1px solid #ccc;
+    background: #f7f7f7;
+    white-space: pre-wrap;
+    color: #3498db;
+    box-sizing: border-box;
+    font-family: monospace;
+    line-height: 1.2;
+}
+
+#input {
+    width: 100%;
+    min-height: 100px; /* Increased for better visibility */
+    resize: vertical; /* Allow vertical resizing */
+    background: transparent;
+    border: none;
+    outline: none;
+    color: black;
+    caret-color: black;
+    white-space: pre-wrap;
+    font-family: monospace;
+    overflow-y: hidden;
+    padding: 8px;
+    box-sizing: border-box;
+    line-height: 1.18;
+}
+
+#line-numbers span {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+.pre{
+            display: none;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        body {
+            font-family: sans-serif;
+            background-color: #1E1E1E; /* Dark background */
+            color: #A9A9A9; /* Light gray text */
+        }
+
+        .code-container {
+            border: 1px solid #333; /* Dark gray border */
+            border-radius: 5px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        #line-numbers {
+            background-color: #282828; /* Darker gray for line numbers */
+            color: #3498db; /* Lighter gray for line numbers */
+            width: 40px;
+            padding-right: 5px;
+            text-align: right;
+            margin-right: 5px;
+        }
+
+        #input {
+            background-color: #212121; /* Dark gray for textarea */
+            color: #A9A9A9; /* Light gray text */
+            border: none;
+            resize: vertical;
+            width: 100%; 
+            color: #3498db;
+            caret-color: white;
+        }
+
+        button {
+            background-color: #3498db; /* Blue button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        #message {
+            color: #FF5733; /* Red for error messages */
+            margin-top: 10px;
+        }
+
+        pre {
+            background-color: #212121; /* Dark gray for output */
+            color: #A9A9A9; /* Light gray text */
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+.cont{
+    display: flex;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+     /* Example background color */
+}
+
+.logo,
+h1 {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px; /* Adjust as needed */
+    margin-right: 0.5rem; /* Space between the logo and text */
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #007BFF; /* Example button color */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 0.5rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+    </style>
+     
+  
+   
+</head>
+<div class="containerjs" style="display: none;">
+        
+    <pre class="pre" id="compiledCode"></pre>
+</div>
+<body>
+
+    
+</head>
+<body>
+
+    <nav class="navbar">
+        
+            <a href="#" class="logo">
+                <img src="Gemini_Generated_Image_gel2zpgel2zpgel2.jpg" alt="Geez Script Logo">
+            </a>
+            <h1>Geez Script</h1>
+            <button id="compile" onclick="compileCode()">Compile</button>
+        
+    </nav>
+
+    
+   
+
+  
+   <p id="message"></p>
+
+   <!-- Display the compiled JavaScript code -->
+  
+
+   <!-- Display the output of the compiled code -->
+  <div class="cont"> <h3>Output:</h3>
+    <pre id="output"></pre>
+</div>
+
+    <!-- Container for line numbers and textarea -->
+    <div class="code-container" style="flex-direction: row;display: flex;">
+        <div id="line-numbers" class="line-numbers">1</div>
+        <textarea id="input" rows="10" cols="50" placeholder="Enter Geez code here..." oninput="updateCode()"></textarea>
+    </div>
+    <br>
+
+ 
+        <script>
+            
+
+    
+    
+    
+                    const updateCode = () => {
+    
+                        const input = document.getElementById('input');
+    
+                        const code = input.value;
+    
+            
+    
+                        // Get the current caret position
+    
+                        const caretPos = input.selectionStart;
+    
+            
+    
+                        // Split the code into lines
+    
+                        const lines = code.split('\n');
+    
+            
+    
+                        // Get the current line
+    
+                        const currentLine = lines[lines.length - 1];
+    
+            
+    
+                        // Update the line numbers
+    
+                        updateLineNumbers();
+    
+            
+    
+                        // Restore the caret position
+    
+                        input.selectionStart = caretPos;
+    
+                    };
+    
+            
+    
+                    const updateLineNumbers = () => {
+    
+                        const textarea = document.getElementById('input');
+    
+                        const lineNumbers = document.getElementById('line-numbers');
+    
+            
+    
+                        const lines = textarea.value.split('\n').length;
+    
+                        lineNumbers.innerHTML = Array.from({ length: lines }, (_, i) => i + 1).join('<br>');
+    
+                    };
+    
+            
+    
+                    // Initialize line numbers on page load
+    
+                    window.onload = () => {
+    
+                        updateLineNumbers();
+    
+                    };
+
+
+        </script>
+        <script src="script.js"></script>
+</body>
+</html>
